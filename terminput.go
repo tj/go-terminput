@@ -25,17 +25,15 @@ func Read(r io.Reader) (*KeyboardInput, error) {
 		return nil, errors.New("invalid rune")
 	}
 
-	var mod Mod
-
 	// control characters
 	if n == 1 && Key(c) <= KeyUS {
-		return newKeyboardInput(Key(c), c, mod), nil
+		return newKeyboardInput(Key(c), c, ModNone), nil
 	}
 
 	// sequences
 	key, ok := keySequences[string(buf[:n])]
 	if ok {
-		mod := ModNone
+		var mod Mod
 
 		switch key {
 		case keyShiftLeft:
@@ -55,5 +53,5 @@ func Read(r io.Reader) (*KeyboardInput, error) {
 		return newKeyboardInput(key, ' ', mod), nil
 	}
 
-	return newKeyboardInput(KeyRune, c, mod), nil
+	return newKeyboardInput(KeyRune, c, ModNone), nil
 }

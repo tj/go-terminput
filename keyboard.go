@@ -5,7 +5,7 @@ type Mod int
 
 // Mod flags available.
 const (
-	ModNone Mod = iota
+	ModNone Mod = 1 << iota
 	ModMeta
 	ModCtrl
 	ModAlt
